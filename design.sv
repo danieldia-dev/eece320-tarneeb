@@ -161,18 +161,18 @@ module card_beats (
 
     always @(*) begin
     beats = 1'b0;
-    if((c_suit==tarneeb)&&(b_suit!=tarneeb)) begin
-        beats=1'b1;
+    if((c_suit == tarneeb)&&(b_suit != tarneeb)) begin
+        beats = 1'b1;
     end
-    else if((c_suit==tarneeb)&&(b_suit==tarneeb)) begin
-        if (c_rank>b_rank)begin
-            beats= 1'b1;
+    else if((c_suit == tarneeb)&&(b_suit == tarneeb)) begin
+        if (c_rank > b_rank)begin
+            beats = 1'b1;
         end
     end
-    else if ((c_suit==lead)&&(b_suit==lead))begin
-        if(lead!=tarneeb)begin
-            if(c_rank>b_rank)begin
-                beats=1'b1;
+    else if ((c_suit == lead) && (b_suit == lead))begin
+        if(lead != tarneeb)begin
+            if(c_rank > b_rank)begin
+                beats = 1'b1;
                 end
             end
         end
@@ -180,11 +180,11 @@ module card_beats (
     // Shortcut Version (conditions 2 & 3 are grouped together in one check)
     always @(*) begin
     beats = 1'b0;
-    if((c_suit==tarneeb) && (b_suit!=tarneeb)) begin
-        beats=1'b1;
+    if((c_suit == tarneeb) && (b_suit != tarneeb)) begin
+        beats = 1'b1;
     end
-    else if((c_suit==b_suit)&&(c_rank>b_rank)) begin
-        beats= 1'b1;
+    else if((c_suit == b_suit) && (c_rank > b_rank)) begin
+        beats = 1'b1;
     end
     end
 endmodule
