@@ -112,34 +112,166 @@ module tarneeb_TB ();
             fail_count = fail_count + 1;
         end
 
-        // No tarneeb played, highest lead card wins (x2) 
-        // TODO
+        // Test 7 Lead suit is the tarneeb suit: expected (1,0)
+        card0 = 8'h2D;   // J of Diamonds
+        card1 = 8'h25;   // 9 of Diamonds
+        card2 = 8'h30;   // Q of Club
+        card3 = 8'h2A;   // 10 of Heart
+        tarneeb = 2'b01; // Diamonds 
+        #10;
+        if ((valid === 1'b1) && (winner === 2'd0)) begin
+            $display("Test 7: PASS");
+            pass_count = pass_count + 1;
+        end else begin
+            $display("Test 7: FAIL (valid=%b winner=%d)", valid, winner);
+            fail_count = fail_count + 1;
+        end
 
-        // Tarneeb beats higher-ranked lead card (x2) 
-        // TODO
+        // Test 8 Tarneeb beats higher-ranked lead card (x2) 
+        card0 = 8'h3A;   // Ace of Heart
+        card1 = 8'h2B;   // 10 of Spades
+        card2 = 8'h2A;   // 10 of Hearts
+        card3 = 8'h14;   // 5 of Club
+        tarneeb = 2'b00; // Clubs
+        #10;
+        if ((valid === 1'b1) && (winner === 2'd3)) begin
+            $display("Test 8: PASS");
+            pass_count = pass_count + 1;
+        end else begin
+            $display("Test 8: FAIL (valid=%b winner=%d)", valid, winner);
+            fail_count = fail_count + 1;
+        end
 
-        // Multiple tarneeb, highest tarneeb wins (x2) 
-        // TODO
+        // Test 9 Multiple tarneeb, highest tarneeb wins: expected (1,2) (x2) 
+        card0 = 8'h34;   // K of Club
+        card1 = 8'h1D;   // 7 of Diamonds
+        card2 = 8'h32;   // Q of Heart 
+        card3 = 8'h26;   // 9 of Heart
+        tarneeb = 2'b10; // Heart
+        #10;
+        if ((valid === 1'b1) && (winner === 2'd2)) begin
+            $display("Test 9: PASS");
+            pass_count = pass_count + 1;
+        end else begin
+            $display("Test 9: FAIL (valid=%b winner=%d)", valid, winner);
+            fail_count = fail_count + 1;
+        end
 
-        // Lead suit is the tarneeb suit (x1) 
-        // TODO
+        // Test 10 Duplicate cards expected(0,0)(x2) 
+        card0 = 8'h16;   // 5 of Hearts
+        card1 = 8'h1B;   // 6 of Spades
+        card2 = 8'h25;   // 9 of Diamond
+        card3 = 8'h16;   // 5 of Hearts
+        tarneeb = 2'b11; // Spades
+        #10;
+        if ((valid === 1'b0) && (winner === 2'd0)) begin
+            $display("Test 10: PASS");
+            pass_count = pass_count + 1;
+        end else begin
+            $display("Test 10: FAIL (valid=%b winner=%d)", valid, winner);
+            fail_count = fail_count + 1;
+        end
 
-        // Duplicate cards (x2) 
-        // TODO
+        // Test 11 Invalid rank < 2 or > 14, includes rank, 15 expected(0,0)
+        card0 = 8'h3E;   // 15 of Hearts
+        card1 = 8'h0E;   // 3 of  Hearts
+        card2 = 8'h20;   // 8 of Clubs
+        card3 = 8'h13;   // 4 of Spades
+        tarneeb = 2'b01; // Diamond
+        #10;
+        if ((valid === 1'b0) && (winner === 2'd0)) begin
+            $display("Test 11: PASS");
+            pass_count = pass_count + 1;
+        end else begin
+            $display("Test 11: FAIL (valid=%b winner=%d)", valid, winner);
+            fail_count = fail_count + 1;
+        end
 
-        // Invalid rank < 2 or > 14 (x2), include ranks 0, 1, 15 
-        // TODO
+        // Test 12 Invalid rank < 2 or > 14 (x2), includes rank 1 expected(0,0)
+        card0 = 8'h04;   // 1 of Clubs
+        card1 = 8'h2A;   // 10 of Hearts
+        card2 = 8'h2D;   // 11 of Diamonds
+        card3 = 8'h0F;   // 3 of Spades
+        tarneeb = 2'b00; // Club
+        #10;
+        if ((valid === 1'b0) && (winner === 2'd0)) begin
+            $display("Test 12: PASS");
+            pass_count = pass_count + 1;
+        end else begin
+            $display("Test 12: FAIL (valid=%b winner=%d)", valid, winner);
+            fail_count = fail_count + 1;
+        end
 
-        // Higher off-suit card loses to lower lead card (x1) 
-        // TODO
+        // Test 13 higher off suit card loses expected (1,0)
+        card0 = 8'h1A;   // 6 of Hearts
+        card1 = 8'h38;   // A of Clubs 
+        card2 = 8'h0E;   // 3 of Hearts
+        card3 = 8'h35;   // K of Diamonds
+        tarneeb = 2'b11; // Spades
+        #10;
+        if ((valid === 1'b1) && (winner === 2'd0)) begin
+            $display("Test 13: PASS");
+            pass_count = pass_count + 1;
+        end else begin
+            $display("Test 13: FAIL (valid=%b winner=%d)", valid, winner);
+            fail_count = fail_count + 1;
+        end
+
+        // Test 14 Invalid rank < 2 or > 14 , include rank 15 for card 3 expected(0,0)
+        card0 = 8'h2A;   // 10 of Hearts
+        card1 = 8'h36;   // K of Hearts
+        card2 = 8'h0C;   // 3 of Clubs
+        card3 = 8'h3C;   // 15 of Clubs
+        tarneeb = 2'b11; // Spades
+        #10;
+        if ((valid === 1'b0) && (winner === 2'd0)) begin
+            $display("Test 14: PASS");
+            pass_count = pass_count + 1;
+        end else begin
+            $display("Test 14: FAIL (valid=%b winner=%d)", valid, winner);
+            fail_count = fail_count + 1;
+        end
+
+        // Test 15 duplicate cards (1 & 2) expected(0,0)
+        card0 = 8'h14;   // 5 of Clubs
+        card1 = 8'h1E;   // 7 of Hearts
+        card2 = 8'h1E;   // 7 of Hearts
+        card3 = 8'h37;   // K of Spades
+        tarneeb = 2'b11; // Spades
+        #10;
+        if ((valid === 1'b0) && (winner === 2'd0)) begin
+            $display("Test 15: PASS");
+            pass_count = pass_count + 1;
+        end else begin
+            $display("Test 15: FAIL (valid=%b winner=%d)", valid, winner);
+            fail_count = fail_count + 1;
+        end
+        
+        /*
+         Coverage summary:
+        
+         Tests 1 and 3: No tarneeb card is played; highest lead-suit card wins.
+         Tests 2 and 8: Tarneeb beats a higher-ranked lead-suit card.
+         Tests 4 and 9: Multiple tarneeb cards; highest tarneeb wins.
+         Test 7: Lead suit is the same as the tarneeb suit.
+         Tests 5, 10, and 15: Duplicate cards are detected.
+         Tests 6, 11, 12, and 14: Invalid ranks (0, 1, and 15) are rejected.
+         Test 13: Higher-ranked off-suit card loses to a lower-ranked lead-suit card.
+         
+         Winner coverage:
+         Player 0 wins: Tests 7 and 13.
+         Player 1 wins: Tests 1, 2, and 3.
+         Player 2 wins: Tests 4 and 9.
+         Player 3 wins: Test 8.
+         */
 
         // Coverage checklist (valid vectors):
-        //  [ ] player 0 wins   
-        //  [ ] player 1 wins
-        //  [ ] player 2 wins   
-        //  [ ] player 3 wins
-        //  [ ] rank 2 appears  
-        //  [ ] rank 14 (Ace) appears
+        //  [x] player 0 wins   
+        //  [x] player 1 wins
+        //  [x] player 2 wins   
+        //  [x] player 3 wins
+        //  [x] rank 2 appears  
+        //  [x] rank 14 (Ace) appears
 
         $display("--------------------------------");
         $display("Passed: %0d  Failed: %0d", pass_count, fail_count);
