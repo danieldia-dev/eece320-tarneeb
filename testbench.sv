@@ -113,7 +113,7 @@ module tarneeb_TB ();
         end
 
         // Test 7 Lead suit is the tarneeb suit: expected (1,0)
-        card0 = 8'h2D;   // Jack of Diamonds
+        card0 = 8'h2D;   // J of Diamonds
         card1 = 8'h25;   // 9 of Diamonds
         card2 = 8'h30;   // Q of Club
         card3 = 8'h2A;   // 10 of Heart
@@ -129,8 +129,8 @@ module tarneeb_TB ();
 
         // Test 8 Tarneeb beats higher-ranked lead card (x2) 
         card0 = 8'h3A;   // Ace of Heart
-        card1 = 8'h2B;   // 10 of spades
-        card2 = 8'h2A;   // 10 og Hearts
+        card1 = 8'h2B;   // 10 of Spades
+        card2 = 8'h2A;   // 10 of Hearts
         card3 = 8'h14;   // 5 of Club
         tarneeb = 2'b00; // Clubs
         #10;
@@ -143,7 +143,7 @@ module tarneeb_TB ();
         end
 
         // Test 9 Multiple tarneeb, highest tarneeb wins: expected (1,2) (x2) 
-        card0 = 8'h34;   // K of club
+        card0 = 8'h34;   // K of Club
         card1 = 8'h1D;   // 7 of Diamonds
         card2 = 8'h32;   // Q of Heart 
         card3 = 8'h26;   // 9 of Heart
@@ -174,7 +174,7 @@ module tarneeb_TB ();
 
         // Test 11 Invalid rank < 2 or > 14, includes rank, 15 expected(0,0)
         card0 = 8'h3E;   // 15 of Hearts
-        card1 = 8'h0E;   // 3 of Hearts
+        card1 = 8'h0E;   // 3 of  Hearts
         card2 = 8'h20;   // 8 of Clubs
         card3 = 8'h13;   // 4 of Spades
         tarneeb = 2'b01; // Diamond
