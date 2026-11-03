@@ -159,6 +159,8 @@ module card_beats (
     Keep in mind that best is always either tarneeb or lead suit (as card0 starts).
     */
 
+    /* Original Implementation (all conditions exhaustively checked)
+
     always @(*) begin
     beats = 1'b0;
     if((c_suit == tarneeb)&&(b_suit != tarneeb)) begin
@@ -177,14 +179,17 @@ module card_beats (
             end
         end
     end
-    // Shortcut Version (conditions 2 & 3 are grouped together in one check)
+    
+    */ 
+
+    // Simplified Implementation (with conditions 2 & 3 are grouped together in one check)
     always @(*) begin
-    beats = 1'b0;
-    if((c_suit == tarneeb) && (b_suit != tarneeb)) begin
-        beats = 1'b1;
-    end
-    else if((c_suit == b_suit) && (c_rank > b_rank)) begin
-        beats = 1'b1;
-    end
+        beats = 1'b0;
+        if((c_suit == tarneeb) && (b_suit != tarneeb)) begin
+            beats = 1'b1;
+        end
+        else if((c_suit == b_suit) && (c_rank > b_rank)) begin
+            beats = 1'b1;
+        end
     end
 endmodule
