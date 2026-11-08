@@ -1,0 +1,31 @@
+[2026-11-08 16:39:38 UTC] iverilog '-Wall' '-g2012' design.sv testbench.sv  && unbuffer vvp a.out  
+VCD info: dumpfile dump.vcd opened for output.
+Test 1: PASS (No tarneeb played, highest lead-suit card wins)
+Test 2: PASS (Tarneeb 2 of Spades beats higher-ranked Ace of Hearts)
+Test 3: PASS (No tarneeb played, highest lead-suit card beats off-suit Ace)
+Test 4: PASS (Multiple tarneeb, highest tarneeb wins)
+Test 5: PASS (Duplicate cards 0 & 1)
+Test 6: PASS (Invalid rank 0 for card 0)
+Test 7: PASS (Lead suit is the tarneeb suit)
+Test 8: PASS (Tarneeb 5 of Clubs beats higher-ranked Ace of Hearts)
+Test 9: PASS (Multiple tarneeb, highest tarneeb wins)
+Test 10: PASS (Duplicate cards 0 & 3)
+Test 11: PASS (Invalid rank 15 for card 0)
+Test 12: PASS (Invalid rank 1 for card 0)
+Test 13: PASS (Higher-ranked off-suit Ace loses to lower lead-suit card)
+Test 14: PASS (Invalid rank 15 for card 3)
+Test 15: PASS (Duplicate cards 1 & 2)
+Test 16: PASS (Duplicate cards 0 & 2)
+Test 17: PASS (Duplicate cards 1 & 3)
+Test 18: PASS (Duplicate cards 2 & 3)
+Test 19: PASS (Invalid rank 1 for card 1)
+Test 20: PASS (Invalid rank 0 for card 2)
+Test 21: PASS (Invalid rank 18 for card 3)
+--------------------------------
+Passed: 21  Failed: 0
+--------------------------------
+testbench.sv:435: $finish called at 210 (1s)
+Finding VCD file...
+./dump.vcd
+[2026-11-08 16:39:39 UTC] Opening EPWave...
+Done
