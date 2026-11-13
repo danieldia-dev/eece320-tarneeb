@@ -83,7 +83,7 @@ When `valid = 0`, `winner = 00` has no meaning. It is the same code as "player 0
 ```
 tarneeb_referee
 ├── input_validator
-│   └── rank_check ×4       2 ≤ rank ≤ 14 for each card
+│   └── rank_checker ×4     2 ≤ rank ≤ 14 for each card
 └── trick_evaluator
     └── card_beats ×3       does the challenger beat the current best?
 ```

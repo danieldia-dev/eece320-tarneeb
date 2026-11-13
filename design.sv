@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------
-// Top level (in module hierarchy)
+// Top level
 // ---------------------------------------------------------------
 
 module tarneeb_referee (
@@ -36,7 +36,7 @@ endmodule
 By convention, we consider invalid input to be (valid = 0, winner = 00) such that:
     - any rank is < 2 or > 14
     - any two cards are identical (same rank and same suit) 
-Reference: circuit specification, section 3.3. 
+Reference: circuit specification, section 3.3 (project handout). 
 Note: the reason why duplicates are invalid is because a deck has only ONE of each card. 
 */
 
@@ -54,10 +54,10 @@ module input_validator (
     rank_checker rc2 (.card(card2), .ok(ok2));
     rank_checker rc3 (.card(card3), .ok(ok3));
 
-    // check if all ranks are legal (4 ok's)
+    // Check if all ranks are legal (4 ok's)
     assign ranks_ok = ({ok0, ok1, ok2, ok3} == 4'b1111) ? 1'b1 : 1'b0;
 
-    // check eza fi duplicates, i.e. compare all 6 pairs (01, 02, 03, 12, 13, 23) on the full 8 bits
+    // Check eza fi duplicates, i.e. compare all 6 pairs (01, 02, 03, 12, 13, 23) on the full 8 bits
     assign no_dupes = (card0 != card1) && (card0 != card2) && (card0 != card3) && 
                       (card1 != card2) && (card1 != card3) && (card2 != card3);
 
@@ -73,7 +73,7 @@ module rank_checker (
     output reg ok
 );
     // This function validates the rank of an individual card, i.e. checks if 2 <= card[7:2] <= 14
-    // Note the ranks in Tarneeb: 2 < 3 < … < 10 < J(11) < Q(12) < K(13) < A(14).
+    // Note the ranks in Tarneeb: 2 < 3 < ... < 10 < J(11) < Q(12) < K(13) < A(14).
     wire [5:0] rank = card[7:2]; // for readability
 
     always @(*) begin // keep in mind that always @(*) forces ok to be a reg
@@ -136,7 +136,7 @@ module card_beats (
     input  [1:0] tarneeb,    // trump suit aka "tarneeb"
     output reg   beats
 );
-    // This functions returns whether the challenger beats best under the tarneeb rules
+    // This functions outputs 1 if the challenger beats the current best card under the tarneeb rules
     wire [1:0] c_suit = challenger[1:0];
     wire [1:0] b_suit = best[1:0];
     wire [5:0] c_rank = challenger[7:2];
@@ -150,7 +150,7 @@ module card_beats (
             Case 2: Best is also tarneeb -> challenger wins only if its rank is higher.
 
         2. Challenger is the lead suit (and not tarneeb)
-            Case 1: Best is tarneeb -> challenger loses. A non-trump can’t beat a trump.
+            Case 1: Best is tarneeb -> challenger loses. A non-trump can't beat a trump.
             Case 2: Best is also lead suit -> challenger wins only if its rank is higher.
 
         3. Challenger is neither tarneeb nor lead
@@ -159,30 +159,7 @@ module card_beats (
     Keep in mind that best is always either tarneeb or lead suit (as card0 starts).
     */
 
-    /* Original Implementation (all conditions exhaustively checked)
-
-    always @(*) begin
-    beats = 1'b0;
-    if((c_suit == tarneeb)&&(b_suit != tarneeb)) begin
-        beats = 1'b1;
-    end
-    else if((c_suit == tarneeb)&&(b_suit == tarneeb)) begin
-        if (c_rank > b_rank)begin
-            beats = 1'b1;
-        end
-    end
-    else if ((c_suit == lead) && (b_suit == lead))begin
-        if(lead != tarneeb)begin
-            if(c_rank > b_rank)begin
-                beats = 1'b1;
-                end
-            end
-        end
-    end
-    
-    */ 
-
-    // Simplified Implementation (with conditions 2 & 3 are grouped together in one check)
+    // Note: conditions 2 & 3 are grouped together in one check
     always @(*) begin
         beats = 1'b0;
         if((c_suit == tarneeb) && (b_suit != tarneeb)) begin

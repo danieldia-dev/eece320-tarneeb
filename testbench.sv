@@ -26,6 +26,7 @@ module tarneeb_TB ();
         pass_count = 0;
         fail_count = 0;
 
+        // NOTE: The table referred to below is the table from the handout, as opposed to the report's "table 1"
         // Test 1: No tarneeb played, highest lead-suit card wins (Table 1, case 1): expected (1,1)
         card0 = 8'h2A;   // 10 of Hearts
         card1 = 8'h36;   // K of Hearts
@@ -227,7 +228,7 @@ module tarneeb_TB ();
         // Test 12: Invalid rank < 2 or > 14, includes rank 1 for card 0: expected (0,0)
         card0 = 8'h04;   // 1 of Clubs
         card1 = 8'h2A;   // 10 of Hearts
-        card2 = 8'h2D;   // 11 of Diamonds
+        card2 = 8'h2D;   // J of Diamonds
         card3 = 8'h0F;   // 3 of Spades
         tarneeb = 2'b00; // Club
 
@@ -371,7 +372,7 @@ module tarneeb_TB ();
         // Test 20: Invalid rank < 2 or > 14, includes rank 0 for card 2: expected (0,0)
         card0 = 8'h2A;   // 10 of Hearts
         card1 = 8'h36;   // K of Hearts
-        card2 = 8'h02;   // 0 of Diamonds
+        card2 = 8'h02;   // 0 of Hearts
         card3 = 8'h1E;   // 7 of Hearts
         tarneeb = 2'b11; // Spades
 
